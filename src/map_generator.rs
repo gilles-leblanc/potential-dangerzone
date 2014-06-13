@@ -25,12 +25,15 @@ pub fn create_drop_points(number_of_drop_points: uint, min_particles: int, max_p
 
 pub fn drop_particles(drops: &[int], height_map: &HeightMap) {
   for drop in drops.iter() {
-    let drop_coord_x = height_map.size / 2;
-    let drop_coord_y = height_map.size / 2;
+    let x = height_map.size / 2;
+    let y = height_map.size / 2;
 
     for _ in range(1, *drop) {
       // drop a particle
-      
+      let HeightMap { map: my_map, size: _ } = height_map;
+      my_map[x + y * height_map.size] = 1;
+      // move drop point
+
     }
   }
 }
