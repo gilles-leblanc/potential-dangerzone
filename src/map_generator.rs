@@ -23,17 +23,27 @@ pub fn create_drop_points(number_of_drop_points: uint, min_particles: int, max_p
   box drops
 }
 
-pub fn drop_particles(drops: &[int], height_map: &HeightMap) {
+pub fn drop_particles(drops: &[int], height_map: &mut HeightMap) {
   for drop in drops.iter() {
-    let x = height_map.size / 2;
-    let y = height_map.size / 2;
+    let x: uint = height_map.size / 2;
+    let y: uint = height_map.size / 2;
 
     for _ in range(1, *drop) {
       // drop a particle
-      let HeightMap { map: my_map, size: _ } = height_map;
-      my_map[x + y * height_map.size] = 1;
-      // move drop point
+      let mut target = *height_map.map.get_mut(x + y * height_map.size);
 
+      if target == 0 {
+        target += 1;
+      } else {
+        // agitate
+        agitate();
+      }
+
+      // move drop point
+      
     }
   }
+}
+
+fn agitate() {
 }

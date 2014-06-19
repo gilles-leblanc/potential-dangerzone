@@ -18,6 +18,6 @@ fn main() {
                                                              max_particles));
 
   for drop_points in drops.iter() {
-    map_generator::drop_particles(drop_points.as_slice(), &height_map);
+    map_generator::drop_particles(drop_points.as_slice(), &mut height_map);
   }
 }
