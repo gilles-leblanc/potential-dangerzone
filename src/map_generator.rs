@@ -15,9 +15,13 @@ impl HeightMap {
 pub fn create_drop_points(number_of_drop_points: uint, min_particles: int, max_particles: int) -> Box<Vec<int>> {
   let mut drops: Vec<int> = Vec::with_capacity(number_of_drop_points);
   let mut rng = rand::task_rng();
+  let mut current_min = min_particles;
+  let mut current_max = max_particles;
 
   for _ in range(1, number_of_drop_points + 1) {
-    drops.push(rng.gen_range(min_particles, max_particles));
+    drops.push(rng.gen_range(current_min, current_max));
+    current_min *= 1.1 as int;
+    current_max *= 1.1 as int;
   }
 
   box drops
@@ -29,18 +33,13 @@ pub fn drop_particles(drops: &[int], height_map: &mut HeightMap) {
     let y: uint = height_map.size / 2;
 
     for _ in range(1, *drop) {
-      // drop a particle
       let mut target = *height_map.map.get_mut(x + y * height_map.size);
 
       if target == 0 {
         target += 1;
       } else {
-        // agitate
         agitate();
       }
-
-      // move drop point
-      
     }
   }
 }

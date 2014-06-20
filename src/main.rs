@@ -13,11 +13,12 @@ fn main() {
 
   let drops: Vec<Box<Vec<int>>>;
   drops = Vec::from_fn(number_of_passes,
-                       |_| map_generator::create_drop_points(number_of_drop_points,
+                       |_| map_generator::create_drop_points(number_of_drop_points *
+                                                             number_of_passes / 2,
                                                              min_particles,
                                                              max_particles));
 
-  for drop_points in drops.iter() {
-    map_generator::drop_particles(drop_points.as_slice(), &mut height_map);
+  for drop_point in drops.iter() {
+    map_generator::drop_particles(drop_point.as_slice(), &mut height_map);
   }
 }
