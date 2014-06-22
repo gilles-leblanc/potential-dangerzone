@@ -20,6 +20,7 @@ impl CoordinateFormula {
     }
   }
 
+  // Calculate the x and y coordinates for a drop point.
   pub fn calculate_coordinates(&mut self, map_size: uint) -> (uint, uint) {
     let mut rng = rand::task_rng();
 
