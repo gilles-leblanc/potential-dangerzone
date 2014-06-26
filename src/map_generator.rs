@@ -2,7 +2,7 @@ use std::rand::Rng;
 use std::rand;
 
 pub struct HeightMap {
-  map: Vec<int>,
+  pub map: Vec<int>,
   size: uint,
 }
 
@@ -50,5 +50,10 @@ pub fn drop_particles(drops: &[int], drop_coordinates: (uint, uint), height_map:
 // Look at a coordinate's neighbors and collect the ones with lowest value. Select one of them to receive
 // particle.
 fn agitate() {
-  // TODO implementation
+  // find all lowest neighbors
+  
+  // no lower neighbor, leave particle on drop point
+
+  // otherwise randomly select neighbor and drop particle
+
 }

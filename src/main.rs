@@ -1,8 +1,11 @@
+use std::io::File;
 use map_generator::HeightMap;
 use coordinate_formula::CoordinateFormula;
 
 mod map_generator;
 mod coordinate_formula;
+
+static FILENAME: &'static str = "height_map.out";
 
 fn main() {
   let size = 40;
@@ -10,7 +13,7 @@ fn main() {
   let min_particles = 100;
   let max_particles = 400;
   let number_of_passes = 4;
-  let particle_stability_radius = 1;
+  // let particle_stability_radius = 1;
 
   let mut coordinate_formula = CoordinateFormula::new();
   let mut height_map: HeightMap = HeightMap::new(size); // TODO check to remove mut, seems not to give compilation error
@@ -29,5 +32,15 @@ fn main() {
     coordinate_formula = coordinate_formula.change_iteration();
   }
 
-  // output height map
+  // output height map in YAML format
+  let path = Path::new(FILENAME);
+  let mut file = match File::create(&path) {
+    Err(why) => fail!("couldn't create {}: {}", FILENAME, why.desc),
+    Ok(file) => file,
+  };
+
+  file.write_line("---");
+  for n in range(0u, size * size) {
+    file.write_line(format!("- {}", *height_map.map.get_mut(n)).as_slice());
+  }
 }
