@@ -13,7 +13,8 @@ impl HeightMap {
 }
 
 // Create a series of drop points that contain a number representing the number of particles per drop point
-pub fn create_drop_points(number_of_drop_points: uint, min_particles: int, max_particles: int) -> Box<Vec<int>> {
+pub fn create_drop_points(number_of_drop_points: uint, min_particles: int,
+                          max_particles: int) -> Box<Vec<int>> {
   let mut drops: Vec<int> = Vec::with_capacity(number_of_drop_points);
   let mut rng = rand::task_rng();
   let mut current_min = min_particles;
@@ -41,7 +42,7 @@ pub fn drop_particles(drops: &[int], drop_coordinates: (uint, uint), height_map:
       } else {
         // Simulate dropping particle at coordinates and then agitating as per particle deposition algo
         // for height map generation. Concretly, drop particle where agitating would have put it.
-        agitate();
+        agitate(drop_coordinates, target, height_map);
       }
     }
   }
@@ -49,11 +50,18 @@ pub fn drop_particles(drops: &[int], drop_coordinates: (uint, uint), height_map:
 
 // Look at a coordinate's neighbors and collect the ones with lowest value. Select one of them to receive
 // particle.
-fn agitate() {
+fn agitate(coordinates: (uint, uint), target_height: int, height_map: &mut HeightMap) {
+  let (x, y) = coordinates;
   // find all lowest neighbors
-  
+  for index_x in range(x - 2, x + 2) {
+    for index_y in range(y - 2, y + 2) {
+      if *height_map.map.get_mut(index_x + index_y * height_map.size) < target_height {
+        *height_map.map.get_mut(index_x + index_y * height_map.size) += 1;
+        return;
+      }
+    }
+  }
+
   // no lower neighbor, leave particle on drop point
-
-  // otherwise randomly select neighbor and drop particle
-
+  *height_map.map.get_mut(x + y * height_map.size) += 1;
 }

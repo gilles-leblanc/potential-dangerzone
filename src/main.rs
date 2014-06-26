@@ -8,14 +8,14 @@ mod coordinate_formula;
 static FILENAME: &'static str = "height_map.out";
 
 fn main() {
-  let size = 40;
-  let number_of_drop_points = 5;
-  let min_particles = 100;
-  let max_particles = 400;
-  let number_of_passes = 4;
+  let size = 50;
+  let number_of_drop_points = 20;
+  let min_particles = 400;
+  let max_particles = 2000;
+  let number_of_passes = 5;
 
   let mut coordinate_formula = CoordinateFormula::new();
-  let mut height_map: HeightMap = HeightMap::new(size); // TODO check to remove mut, seems not to give compilation error
+  let mut height_map: HeightMap = HeightMap::new(size);
 
   let drops: Vec<Box<Vec<int>>>;
   drops = Vec::from_fn(number_of_passes,
