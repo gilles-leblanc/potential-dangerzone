@@ -33,11 +33,11 @@ pub fn drop_particles(drops: &[int], drop_coordinates: (uint, uint), height_map:
   for drop in drops.iter() {
     for _ in range(1, *drop) {
       let (x, y) = drop_coordinates;
-      let mut target = *height_map.map.get_mut(x + y * height_map.size);
+      let target = *height_map.map.get_mut(x + y * height_map.size);
 
       if target == 0 {
         // Drop current particle directly at coordinates
-        target += 1;
+        *height_map.map.get_mut(x + y * height_map.size) += 1;
       } else {
         // Simulate dropping particle at coordinates and then agitating as per particle deposition algo
         // for height map generation. Concretly, drop particle where agitating would have put it.

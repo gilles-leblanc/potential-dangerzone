@@ -13,7 +13,6 @@ fn main() {
   let min_particles = 100;
   let max_particles = 400;
   let number_of_passes = 4;
-  // let particle_stability_radius = 1;
 
   let mut coordinate_formula = CoordinateFormula::new();
   let mut height_map: HeightMap = HeightMap::new(size); // TODO check to remove mut, seems not to give compilation error
